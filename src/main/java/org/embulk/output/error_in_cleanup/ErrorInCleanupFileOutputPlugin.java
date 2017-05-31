@@ -9,6 +9,7 @@ import org.embulk.config.ConfigDiff;
 import org.embulk.config.ConfigSource;
 import org.embulk.config.Task;
 import org.embulk.config.TaskSource;
+import org.embulk.spi.Buffer;
 import org.embulk.spi.Exec;
 import org.embulk.spi.FileOutputPlugin;
 import org.embulk.spi.TransactionalFileOutput;
@@ -77,6 +78,8 @@ public class ErrorInCleanupFileOutputPlugin
             int taskCount,
             List<TaskReport> successTaskReports)
     {
+        // Error occurs!!!
+        taskSource.loadTask(PluginTask.class);
     }
 
     @Override
@@ -84,10 +87,42 @@ public class ErrorInCleanupFileOutputPlugin
     {
         PluginTask task = taskSource.loadTask(PluginTask.class);
 
-        // Write your code here :)
-        throw new UnsupportedOperationException("ErrorInCleanupFileOutputPlugin.open method is not implemented yet");
+        return new TransactionalFileOutput() {
+            @Override
+            public void nextFile()
+            {
 
-        // See LocalFileOutputPlugin as an example implementation:
-        // https://github.com/embulk/embulk/blob/master/embulk-standards/src/main/java/org/embulk/standards/LocalFileOutputPlugin.java
+            }
+
+            @Override
+            public void add(Buffer buffer)
+            {
+
+            }
+
+            @Override
+            public void finish()
+            {
+
+            }
+
+            @Override
+            public void close()
+            {
+
+            }
+
+            @Override
+            public void abort()
+            {
+
+            }
+
+            @Override
+            public TaskReport commit()
+            {
+                return null;
+            }
+        };
     }
 }

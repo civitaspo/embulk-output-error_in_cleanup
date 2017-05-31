@@ -1,0 +1,33 @@
+in:
+  type: file
+  path_prefix: example/data
+  parser:
+    charset: UTF-8
+    newline: CRLF
+    type: csv
+    delimiter: ','
+    quote: '"'
+    header_line: true
+    stop_on_invalid_record: true
+    columns:
+    - {name: id, type: long}
+    - {name: account, type: long}
+    - {name: time, type: timestamp, format: '%Y-%m-%d %H:%M:%S'}
+    - {name: purchase, type: timestamp, format: '%Y%m%d'}
+    - {name: comment, type: string}
+
+
+out:
+  type: error_in_cleanup
+  option1: 0
+  formatter:
+    type: csv
+    newline: CRLF
+    newline_in_field: LF
+    header_line: true
+    charset: UTF-8
+    quote_policy: NONE
+    quote: '"'
+    escape: '\'
+    null_string: ''
+    default_timezone: UTC
